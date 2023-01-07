@@ -1,0 +1,47 @@
+package com.example.newscompose.ui.home.mapper
+
+import com.example.newscompose.R
+import com.example.newscompose.model.News
+import com.example.newscompose.model.NewsCategory
+import com.example.newscompose.ui.components.NewsLabelTextViewState
+import com.example.newscompose.ui.components.NewsLabelViewState
+import com.example.newscompose.ui.home.HomeCategoryViewState
+import com.example.newscompose.ui.home.HomeNewsViewState
+
+class HomeScreenMapperImpl(): HomeScreenMapper {
+    override fun toHomeCategoryViewState(
+        newsCategories: List<NewsCategory>,
+        selectedNewsCategory: NewsCategory,
+        news: List<News>,
+    ): HomeCategoryViewState =
+        HomeCategoryViewState(
+            newsCategories.map { newsCategory ->
+                NewsLabelViewState(
+                    itemId = newsCategory.ordinal,
+                    isSelected = newsCategory == selectedNewsCategory,
+                    text = NewsLabelTextViewState.NewsStringRes(
+                        getStringRes(newsCategory)
+                    )
+                )
+            },
+            news.map { news ->
+                HomeNewsViewState(
+                    id = news.id,
+                    headImageUrl = news.headImageUrl,
+                    date = news.date,
+                    headline = news.headline
+                )
+            }
+        )
+
+    private fun getStringRes(newsCategory: NewsCategory): Int{
+        return when (newsCategory){
+            NewsCategory.NEWS_CROATIA -> R.string.croatia
+            NewsCategory.NEWS_CLIMATE -> R.string.climate
+            NewsCategory.NEWS_POLITICS -> R.string.politics
+            NewsCategory.NEWS_UKRAINE -> R.string.ukraine
+            NewsCategory.NEWS_TEHNOLOGY -> R.string.tehnology
+            NewsCategory.NEWS_US_POLITICS -> R.string.us_politics
+        }
+    }
+}

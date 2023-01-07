@@ -2,5 +2,8 @@
     <string name="app_name">News</string>
     <string name="ukraine">Ukraine</string>
     <string name="croatia">Croatia</string>
-    <string name="tehnology">Tehnology</string>
+    <string name="technology">Technology</string>
+    <string name="politics">Politics</string>
+    <string name="climate">Climate</string>
+    <string name="us_politics">US Politics</string>
 </resources>
