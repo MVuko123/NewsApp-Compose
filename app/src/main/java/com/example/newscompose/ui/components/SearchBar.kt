@@ -1,4 +1,4 @@
-package com.example.newscompose.components
+package com.example.newscompose.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

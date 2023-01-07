@@ -1,4 +1,4 @@
-package com.example.newscompose.components
+package com.example.newscompose.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

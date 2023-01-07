@@ -1,4 +1,4 @@
-package com.example.newscompose.components
+package com.example.newscompose.ui.components
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable

@@ -1,4 +1,4 @@
-package com.example.newscompose
+package com.example.newscompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
