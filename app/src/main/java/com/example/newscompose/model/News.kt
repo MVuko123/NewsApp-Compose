@@ -1,10 +1,11 @@
 package com.example.newscompose.model
 
-import java.util.Date
+import com.example.newscompose.data.network.model.Source
 
 data class News(
-    val id: Int,
+    val source: Source?,
     val headImageUrl: String,
     val headline: String,
-    val date: Date,
+    val date: String,
+    val isSaved: Boolean
 )

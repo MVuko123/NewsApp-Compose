@@ -26,10 +26,11 @@ class HomeScreenMapperImpl(): HomeScreenMapper {
             },
             news.map { news ->
                 HomeNewsViewState(
-                    id = news.id,
+                    source = news.source,
                     headImageUrl = news.headImageUrl,
                     date = news.date,
-                    headline = news.headline
+                    headline = news.headline,
+                    isSaved = news.isSaved
                 )
             }
         )
@@ -40,7 +41,7 @@ class HomeScreenMapperImpl(): HomeScreenMapper {
             NewsCategory.NEWS_CLIMATE -> R.string.climate
             NewsCategory.NEWS_POLITICS -> R.string.politics
             NewsCategory.NEWS_UKRAINE -> R.string.ukraine
-            NewsCategory.NEWS_TEHNOLOGY -> R.string.tehnology
+            NewsCategory.NEWS_TECHNOLOGY -> R.string.technology
             NewsCategory.NEWS_US_POLITICS -> R.string.us_politics
         }
     }

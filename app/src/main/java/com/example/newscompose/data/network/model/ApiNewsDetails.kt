@@ -8,25 +8,26 @@ import java.util.*
 
 @Serializable
 data class ApiNewsDetails(
-    @SerialName("id")
-    val id: Int,
+    @SerialName("source")
+    val source: Source,
     @SerialName("urlToImage")
     val headImageUrl: String,
     @SerialName("title")
     val title: String,
     @SerialName("publishedAt")
-    val date: Date,
+    val date: String,
     @SerialName("author")
     val author: String,
     @SerialName("content")
     val content: String
 ){
-    fun toNewsDetails() = NewsDetails(
+    fun toNewsDetails(isSaved: Boolean) = NewsDetails(
         news = News(
-            id = id,
+            source = source,
             headImageUrl = headImageUrl,
             headline = title,
-            date = date
+            date = date,
+            isSaved = isSaved
         ),
         author = author,
         text = content

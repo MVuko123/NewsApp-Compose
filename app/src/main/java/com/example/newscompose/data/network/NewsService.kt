@@ -1,6 +1,9 @@
 package com.example.newscompose.data.network
 
+import com.example.newscompose.data.network.model.ApiNewsDetails
+import com.example.newscompose.data.network.model.NewsCreditsResponse
 import com.example.newscompose.data.network.model.NewsResponse
+import com.example.newscompose.data.network.model.Source
 
 interface NewsService {
     suspend fun fetchCroatiaNews(): NewsResponse
@@ -10,4 +13,6 @@ interface NewsService {
     suspend fun fetchClimateNews(): NewsResponse
     suspend fun fetchUsPoliticsNews(): NewsResponse
     suspend fun fetchSearchedNews(country: Int): NewsResponse
+    suspend fun fetchNewsDetails(source: Source?): ApiNewsDetails
+    suspend fun fetchNewsCredits(source: Source?): NewsCreditsResponse
 }

@@ -2,6 +2,11 @@ package com.example.newscompose
 
 import android.app.Application
 import android.util.Log
+import com.example.newscompose.data.di.concurrencyModule
+import com.example.newscompose.data.di.dataBaseModule
+import com.example.newscompose.data.di.dataModule
+import com.example.newscompose.data.di.networkModule
+import com.example.newscompose.ui.home.di.homeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -15,7 +20,11 @@ class NewsApp : Application() {
             androidLogger(Level.INFO)
             androidContext(this@NewsApp)
             modules(
-
+                concurrencyModule,
+                dataBaseModule,
+                dataModule,
+                networkModule,
+                homeModule
             )
         }
 

@@ -7,19 +7,28 @@ import java.util.Date
 
 @Serializable
 data class ApiNews(
-  @SerialName("id")
-  val id: Int,
+  @SerialName("source")
+  val source: Source?,
   @SerialName("urlToImage")
   val headImageUrl: String,
   @SerialName("title")
   val title: String,
   @SerialName("publishedAt")
-  val date: Date
+  val date: String
 ){
-  fun toNews() = News(
-    id = id,
+  fun toNews(isSaved: Boolean) = News(
+    source = source,
     headImageUrl = headImageUrl,
     headline = title,
-    date = date
+    date = date,
+    isSaved = isSaved
   )
 }
+
+@Serializable
+data class Source(
+  @SerialName("id")
+  val id: String? = null,
+  @SerialName("name")
+  val name: String? = null
+)
