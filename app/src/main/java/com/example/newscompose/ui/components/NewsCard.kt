@@ -26,7 +26,7 @@ import java.util.*
 data class NewsCardViewState(
     val newsImageUrl: String?,
     val headline: String,
-    val date: String,
+    val date: String    ,
     val isSaved: Boolean
 )
 

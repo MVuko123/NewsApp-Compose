@@ -7,6 +7,7 @@ import com.example.newscompose.data.di.dataBaseModule
 import com.example.newscompose.data.di.dataModule
 import com.example.newscompose.data.di.networkModule
 import com.example.newscompose.ui.home.di.homeModule
+import com.example.newscompose.ui.newsDetails.di.newsDetailsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -24,7 +25,8 @@ class NewsApp : Application() {
                 dataBaseModule,
                 dataModule,
                 networkModule,
-                homeModule
+                homeModule,
+                newsDetailsModule
             )
         }
 
