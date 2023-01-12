@@ -11,7 +11,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
-import java.util.*
 
 class NewsRepositoryImpl(
     private val newsService: NewsService,
@@ -23,7 +22,7 @@ class NewsRepositoryImpl(
         .associateWith { newsCategory ->
             flow {
                 val newsResponse = when (newsCategory) {
-                    NewsCategory.NEWS_CROATIA -> newsService.fetchCroatiaNews()
+                    NewsCategory.NEWS_CROATIA -> newsService.fetchUnitedStatesNews()
                     NewsCategory.NEWS_UKRAINE -> newsService.fetchUkraineNews()
                     NewsCategory.NEWS_CLIMATE -> newsService.fetchClimateNews()
                     NewsCategory.NEWS_TECHNOLOGY -> newsService.fetchTechnologyNews()

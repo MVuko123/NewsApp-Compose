@@ -6,4 +6,6 @@
     <string name="politics">Politics</string>
     <string name="climate">Climate</string>
     <string name="us_politics">US Politics</string>
+    <string name="home">Home</string>
+    <string name="saved">Saved</string>
 </resources>

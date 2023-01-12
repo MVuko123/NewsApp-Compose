@@ -8,7 +8,7 @@ import java.util.Date
 @Serializable
 data class ApiNews(
   @SerialName("source")
-  val source: Source?,
+  val source: Source? = null,
   @SerialName("urlToImage")
   val headImageUrl: String,
   @SerialName("title")

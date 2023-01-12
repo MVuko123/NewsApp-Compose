@@ -6,10 +6,28 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.navigation.NavigationItem
 import com.example.newscompose.ui.components.NewsCard
+
+@Composable
+fun SavedRoute(
+    savedViewModel: SavedViewModel,
+    source: Source?,
+    onNavigateToNewsDetails: (String) -> Unit
+){
+    val savedState: SavedViewState by savedViewModel.savedNewsViewState.collectAsState()
+
+    SavedScreen(
+        savedViewState = savedState,
+        onNavigateToNewsDetails = onNavigateToNewsDetails,
+        onSavedClick = { savedViewModel.toggleSaved(source) }
+    )
+}
 
 @Composable
 fun SavedScreen(

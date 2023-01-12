@@ -14,7 +14,7 @@ val dataBaseModule = module {
             androidApplication(),
             NewsAppDatabase::class.java,
             APP_DATABASE_NAME
-        )
+        ).build()
     }
     fun savedNewsDao(db: NewsAppDatabase): SavedNewsDao = db.savedNewsDao()
     single {
