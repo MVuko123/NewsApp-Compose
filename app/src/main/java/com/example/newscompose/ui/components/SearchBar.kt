@@ -1,5 +1,6 @@
 package com.example.newscompose.ui.components
 
+import android.widget.SearchView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

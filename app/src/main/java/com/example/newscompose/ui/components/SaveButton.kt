@@ -27,7 +27,7 @@ fun SaveButton(
 ){
     Surface(
         shape = CircleShape,
-        color = Color(0x77000000),
+        color = Color(0x77968383),
         modifier = modifier.padding(10.dp)
     ) {
         Image(

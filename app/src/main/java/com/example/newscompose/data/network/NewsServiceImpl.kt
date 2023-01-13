@@ -14,26 +14,26 @@ private const val BASE_URL = "https://newsapi.org/v2"
 private const val API_KEY = "595ad80691dc4b4d87375de0804b5e98"
 
 class NewsServiceImpl(private val client: HttpClient) : NewsService{
-    override suspend fun fetchUnitedStatesNews(): NewsResponse =
-        client.get("$BASE_URL/top-headlines?country=us&apiKey=$API_KEY&image=true").body()
+    override suspend fun fetchEUNews(): NewsResponse =
+        client.get("$BASE_URL/everything?q=european+union&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
     override suspend fun fetchUkraineNews(): NewsResponse =
-        client.get("$BASE_URL/top-headlines?country=ua&apiKey=$API_KEY&image=true").body()
+        client.get("$BASE_URL/everything?q=ukraine+war&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
     override suspend fun fetchTechnologyNews(): NewsResponse =
-        client.get("$BASE_URL/top-headlines?category=technology&apiKey=$API_KEY&image=true").body()
+        client.get("$BASE_URL/everything?q=technology&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
     override suspend fun fetchPoliticsNews(): NewsResponse =
-        client.get("$BASE_URL/top-headlines?category=politics&apiKey=$API_KEY&image=true").body()
+        client.get("$BASE_URL/everything?q=politics&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
     override suspend fun fetchClimateNews(): NewsResponse =
-        client.get("$BASE_URL/top-headlines?category=climate&apiKey=$API_KEY&image=true").body()
+        client.get("$BASE_URL/everything?q=climate+change&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
     override suspend fun fetchUsPoliticsNews(): NewsResponse =
-        client.get("$BASE_URL/top-headlines?country=us&category=politics&apiKey=$API_KEY&image=true").body()
+        client.get("$BASE_URL/everything?q=us+politics&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
-    override suspend fun fetchSearchedNews(source: Source?): NewsResponse =
-        client.get("$BASE_URL/top-headlines?sources=$source&apiKey=$API_KEY&image=true").body()
+    override suspend fun fetchSearchedNews(q: String): NewsResponse =
+        client.get("$BASE_URL/everything?q=$q&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
     override suspend fun fetchNewsDetails(source: Source?): ApiNewsDetails =
         client.get("$BASE_URL/sources=$source&apiKey=$API_KEY&image=true").body()

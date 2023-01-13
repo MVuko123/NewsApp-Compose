@@ -28,8 +28,8 @@ class HomeScreenMapperImpl(): HomeScreenMapper {
                 HomeNewsViewState(
                     source = news.source,
                     headImageUrl = news.headImageUrl,
-                    date = news.date,
-                    headline = news.headline,
+                    publishedAt = news.date,
+                    title = news.headline,
                     isSaved = news.isSaved
                 )
             }
@@ -37,7 +37,7 @@ class HomeScreenMapperImpl(): HomeScreenMapper {
 
     private fun getStringRes(newsCategory: NewsCategory): Int{
         return when (newsCategory){
-            NewsCategory.NEWS_CROATIA -> R.string.croatia
+            NewsCategory.NEWS_EU -> R.string.europe
             NewsCategory.NEWS_CLIMATE -> R.string.climate
             NewsCategory.NEWS_POLITICS -> R.string.politics
             NewsCategory.NEWS_UKRAINE -> R.string.ukraine

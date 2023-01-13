@@ -2,11 +2,13 @@ package com.example.newscompose.navigation
 
 import com.example.newscompose.R
 import com.example.newscompose.data.network.model.Source
+import com.example.newscompose.model.News
+import okhttp3.Request
 
 const val HOME_ROUTE = "Home"
 const val SAVED_ROUTE = "Saved"
 const val NEWS_DETAILS_ROUTE = "NewsDetails"
-const val NEWS_ID_KEY = "source"
+const val NEWS_ID_KEY = "title"
 const val NEWS_DETAILS_ROUTE_WITH_PARAMS = "$NEWS_DETAILS_ROUTE/{$NEWS_ID_KEY}"
 
 sealed class NavigationItem(
@@ -30,6 +32,6 @@ sealed class NavigationItem(
     )
 
     object NewsDetailsDestination : NewsAppDestination(NEWS_DETAILS_ROUTE_WITH_PARAMS){
-        fun createNavigationRoute(source: Source?): String = "$NEWS_DETAILS_ROUTE/$source"
+        fun createNavigationRoute(source: Source?): String = "$NEWS_DETAILS_ROUTE/${source?.name}"
     }
 }

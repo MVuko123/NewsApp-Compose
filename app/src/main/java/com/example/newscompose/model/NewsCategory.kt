@@ -6,5 +6,5 @@ enum class NewsCategory{
     NEWS_POLITICS,
     NEWS_CLIMATE,
     NEWS_US_POLITICS,
-    NEWS_CROATIA
+    NEWS_EU
 }

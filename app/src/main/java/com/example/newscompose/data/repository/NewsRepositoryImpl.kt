@@ -22,7 +22,7 @@ class NewsRepositoryImpl(
         .associateWith { newsCategory ->
             flow {
                 val newsResponse = when (newsCategory) {
-                    NewsCategory.NEWS_CROATIA -> newsService.fetchUnitedStatesNews()
+                    NewsCategory.NEWS_EU -> newsService.fetchEUNews()
                     NewsCategory.NEWS_UKRAINE -> newsService.fetchUkraineNews()
                     NewsCategory.NEWS_CLIMATE -> newsService.fetchClimateNews()
                     NewsCategory.NEWS_TECHNOLOGY -> newsService.fetchTechnologyNews()
@@ -70,7 +70,6 @@ class NewsRepositoryImpl(
                 }
             }
         }
-
         return news
     }
 

@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NewsResponse(
-    @SerialName("results")
+    @SerialName("articles")
     val news: List<ApiNews>,
 )

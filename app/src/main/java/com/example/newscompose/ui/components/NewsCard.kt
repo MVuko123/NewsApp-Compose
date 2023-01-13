@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -17,16 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.newscompose.R
-import com.example.newscompose.data.network.model.ApiNews
 import com.example.newscompose.ui.theme.NewsComposeTheme
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 data class NewsCardViewState(
     val newsImageUrl: String?,
-    val headline: String,
-    val date: String    ,
+    val title: String,
+    val publishedAt: String,
     val isSaved: Boolean
 )
 
@@ -65,8 +60,8 @@ fun NewsCard(
             .padding(top = 10.dp, bottom = 5.dp),
             Arrangement.SpaceBetween
         ) {
-            Text(text = newsCardViewState.date , fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
-            Text(text = newsCardViewState.headline, fontSize = 12.sp, fontWeight = FontWeight.Normal)
+            Text(text = newsCardViewState.publishedAt , fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
+            Text(text = newsCardViewState.title, fontSize = 12.sp, fontWeight = FontWeight.Normal)
         }
     }
 }
@@ -79,8 +74,8 @@ fun NewsCardPreview(){
     NewsComposeTheme {
         NewsCard(newsCardViewState = NewsCardViewState(
             newsImageUrl = "https://i.ytimg.com/vi/VXBO4jTxI2o/maxresdefault.jpg",
-            date = "25.02.2022",
-            headline = "Russia Attacks Ukraine!",
+            publishedAt = "25.02.2022",
+            title = "Russia Attacks Ukraine!",
             isSaved = true
         ), toNewsDetails = { /*TODO*/ }, onSavedClick = {})
     }
