@@ -7,6 +7,7 @@ import okhttp3.Request
 
 const val HOME_ROUTE = "Home"
 const val SAVED_ROUTE = "Saved"
+const val SEARCH_ROUTE = "Search"
 const val NEWS_DETAILS_ROUTE = "NewsDetails"
 const val NEWS_ID_KEY = "title"
 const val NEWS_DETAILS_ROUTE_WITH_PARAMS = "$NEWS_DETAILS_ROUTE/{$NEWS_ID_KEY}"
@@ -29,6 +30,13 @@ sealed class NavigationItem(
         selectedIconId = R.drawable.ic_baseline_bookmark_24,
         unselectedIconId = R.drawable.ic_baseline_bookmark_border_24,
         labelId = R.string.saved,
+    )
+
+    object SearchDestination : NavigationItem(
+        route = SEARCH_ROUTE,
+        selectedIconId = R.drawable.ic_baseline_search_24,
+        unselectedIconId = R.drawable.ic_baseline_search_24,
+        labelId = R.string.search
     )
 
     object NewsDetailsDestination : NewsAppDestination(NEWS_DETAILS_ROUTE_WITH_PARAMS){

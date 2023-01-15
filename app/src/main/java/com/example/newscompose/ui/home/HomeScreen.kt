@@ -56,7 +56,7 @@ fun NewsScreen(
             color = MaterialTheme.colors.onSurface,
             fontWeight = FontWeight.Bold
         )*/
-        SearchBar()
+        //SearchBar()
         LazyRow(
             modifier = modifier.height(50.dp),
             contentPadding = PaddingValues(start = 10.dp)

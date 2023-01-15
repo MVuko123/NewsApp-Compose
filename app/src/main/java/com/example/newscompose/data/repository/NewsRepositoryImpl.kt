@@ -89,6 +89,14 @@ class NewsRepositoryImpl(
 
     override fun savedNews(): Flow<List<News>> = saved
 
+    override fun searchNews(topic: String): Flow<List<News>> = flow {
+        emit(newsService.fetchSearchedNews(topic))
+    }.flatMapLatest {  response ->
+        newsDao.saved().map { savedNews ->
+            response.news.map { news -> news.toNews(isSaved = savedNews.any {it.newsSource == news.source}) }
+        }
+    }
+
     override suspend fun addNewsToSaved(source: Source?) {
         runBlocking (bgDispatcher){
             newsDao.insertIntoSaved(

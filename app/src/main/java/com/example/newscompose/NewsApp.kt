@@ -9,6 +9,7 @@ import com.example.newscompose.data.di.networkModule
 import com.example.newscompose.ui.home.di.homeModule
 import com.example.newscompose.ui.newsDetails.di.newsDetailsModule
 import com.example.newscompose.ui.saved.di.savedModule
+import com.example.newscompose.ui.search.di.searchModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -28,10 +29,10 @@ class NewsApp : Application() {
                 networkModule,
                 homeModule,
                 newsDetailsModule,
-                savedModule
+                savedModule,
+                searchModule
             )
         }
-
         Log.d("NewsApp", "App started")
     }
 }

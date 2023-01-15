@@ -32,6 +32,8 @@ import com.example.newscompose.ui.newsDetails.NewsDetailsRoute
 import com.example.newscompose.ui.newsDetails.NewsDetailsViewModel
 import com.example.newscompose.ui.saved.SavedRoute
 import com.example.newscompose.ui.saved.SavedViewModel
+import com.example.newscompose.ui.search.SearchRoute
+import com.example.newscompose.ui.search.SearchViewModel
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -45,6 +47,7 @@ fun MainScreen() {
     val showBackIcon = !showBottomBar
     val homeViewModel = getViewModel<HomeViewModel>()
     val savedViewModel = getViewModel<SavedViewModel>()
+    val searchViewModel = getViewModel<SearchViewModel>()
     Scaffold(
         topBar = {
             TopBar(
@@ -64,6 +67,7 @@ fun MainScreen() {
                     destinations = listOf(
                         NavigationItem.HomeDestination,
                         NavigationItem.SavedDestination,
+                        NavigationItem.SearchDestination
                     ),
                     onNavigateToDestination = {
                         navController.navigate(it.route) {
@@ -104,6 +108,15 @@ fun MainScreen() {
                             navController.navigate(it)
                         }
                     )
+                }
+                composable(NavigationItem.SearchDestination.route){
+                    SearchRoute(
+                        searchViewModel = searchViewModel,
+                        onNavigateToNewsDetails = {
+                            showBottomBar = showBottomBar.not()
+                            navController.navigate(it)
+                        },
+                        source = Source("",""))
                 }
                 composable(
                     route = NavigationItem.NewsDetailsDestination.route,
@@ -180,8 +193,10 @@ private fun BottomNavigationBar(
                             contentDescription =
                             if (currentDestination?.route == destination.route)
                                 stringResource(id = R.string.home)
-                            else
-                                stringResource(id = R.string.saved),
+                            else {
+                                stringResource(id = R.string.saved)
+                                stringResource(id = R.string.search)
+                            },
                             colorFilter = ColorFilter.tint(color = MaterialTheme.colors.onBackground)
                         )
                         Text(text = stringResource(id = destination.labelId))
