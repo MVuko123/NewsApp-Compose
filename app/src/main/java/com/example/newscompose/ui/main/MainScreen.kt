@@ -36,8 +36,11 @@ import com.example.newscompose.ui.saved.SavedRoute
 import com.example.newscompose.ui.saved.SavedViewModel
 import com.example.newscompose.ui.search.SearchRoute
 import com.example.newscompose.ui.search.SearchViewModel
+import io.ktor.util.*
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun MainScreen() {
@@ -121,11 +124,12 @@ fun MainScreen() {
                 }
                 composable(
                     route = NavigationItem.NewsDetailsDestination.route,
-                    arguments = listOf(navArgument(NEWS_ID_KEY) { type = NavType.LongType }),
+                    arguments = listOf(navArgument(NEWS_ID_KEY) { type = NavType.StringType }),
                 ) {
                     val url = it.arguments?.getString(NEWS_ID_KEY)
+                    val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString()).encodeBase64()
                     val newsDetailsViewModel =
-                        getViewModel<NewsDetailsViewModel>(parameters = { parametersOf(url) })
+                        getViewModel<NewsDetailsViewModel>(parameters = { parametersOf(encodedUrl) })
                     NewsDetailsRoute(newsDetailsViewModel = newsDetailsViewModel)
                 }
             }

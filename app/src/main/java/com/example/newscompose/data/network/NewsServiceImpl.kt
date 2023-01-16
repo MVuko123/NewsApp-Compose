@@ -10,8 +10,8 @@ import io.ktor.client.request.*
 
 //https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=595ad80691dc4b4d87375de0804b5e98
 
-private const val BASE_URL = "https://newsapi.org/v2"
-private const val API_KEY = "595ad80691dc4b4d87375de0804b5e98"
+const val BASE_URL = "https://newsapi.org/v2"
+private const val API_KEY = "2bc9d70d5883464a83e7da756ceb4d2e"
 
 class NewsServiceImpl(private val client: HttpClient) : NewsService{
     override suspend fun fetchEUNews(): NewsResponse =

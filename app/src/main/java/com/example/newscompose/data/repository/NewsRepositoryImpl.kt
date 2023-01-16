@@ -2,16 +2,21 @@ package com.example.newscompose.data.repository
 
 import com.example.newscompose.data.database.DbSavedNews
 import com.example.newscompose.data.database.SavedNewsDao
+import com.example.newscompose.data.network.BASE_URL
 import com.example.newscompose.data.network.NewsService
 import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.model.News
 import com.example.newscompose.model.NewsCategory
 import com.example.newscompose.model.NewsDetails
+import io.ktor.util.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
+import org.jsoup.Jsoup
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 class NewsRepositoryImpl(
     private val newsService: NewsService,
@@ -51,7 +56,7 @@ class NewsRepositoryImpl(
             News(
                 url = dbSavedNews.url,
                 source = Source("",""),
-                headImageUrl = dbSavedNews.headImageUrl,
+                headImageUrl = "",//dbSavedNews.headImageUrl,
                 headline = "",
                 date = "",
                 isSaved = true
@@ -80,12 +85,14 @@ class NewsRepositoryImpl(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun newsDetails(url: String): Flow<NewsDetails> = flow {
-       emit(newsService.fetchNewsDetails(url) to newsService.fetchNewsCredits(url))
+        val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString()).encodeBase64()
+       emit(newsService.fetchNewsDetails(encodedUrl) to newsService.fetchNewsCredits(encodedUrl))
     }.flatMapLatest { (apiNewsDetails, apiNewsCredits) ->
         newsDao.saved()
             .map { savedNews ->
+                val encodedUrl = URLEncoder.encode(apiNewsDetails.url, StandardCharsets.UTF_8.toString())
                 apiNewsDetails.toNewsDetails(
-                    isSaved = savedNews.any{it.url == apiNewsDetails.url}
+                    isSaved = savedNews.any{it.url == encodedUrl}
                 )
             }
     }
@@ -102,22 +109,32 @@ class NewsRepositoryImpl(
         }
 
     override suspend fun addNewsToSaved(url: String) {
+       // val doc = Jsoup.connect(url).get()
+        //val imageUrl = doc.select("img").first().absUrl("src")
+        val savedNews = findNews(url)
         runBlocking (bgDispatcher){
             newsDao.insertIntoSaved(
                 DbSavedNews(
-                    url = url,
-                    headImageUrl = "${newsService.fetchNewsDetails(url).headImageUrl}"
+                    url = savedNews.url,
+                    headline = savedNews.headline,
+                    headImageUrl = savedNews.headImageUrl,
+                    date = savedNews.date
                 )
             )
         }
     }
 
     override suspend fun removeNewsFromSaved(url: String) {
+        //val doc = Jsoup.connect("url").get()
+        //val imageUrl = doc.select("img").first().absUrl("src")
+        val savedNews = findNews(url)
         runBlocking (bgDispatcher){
             newsDao.deleteFromSaved(
                 DbSavedNews(
-                    url = url,
-                    headImageUrl = "${newsService.fetchNewsDetails(url).headImageUrl}"
+                    url = savedNews.url,
+                    headline = savedNews.headline,
+                    headImageUrl = savedNews.headImageUrl,
+                    date = savedNews.date
                 )
             )
         }

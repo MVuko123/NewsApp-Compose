@@ -11,5 +11,10 @@ import com.example.newscompose.data.network.model.Source
 data class DbSavedNews(
     @PrimaryKey
     val url: String,
-    val headImageUrl: String,
+    val headImageUrl: String?,
+    val headline: String,
+    val date: String,
+    //val isSaved: Boolean,
+    //val author: String,
+    //val content: String
 )

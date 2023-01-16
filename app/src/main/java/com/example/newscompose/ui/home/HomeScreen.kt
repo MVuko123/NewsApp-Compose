@@ -22,7 +22,10 @@ import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.navigation.NavigationItem
 import com.example.newscompose.ui.components.*
 import com.example.newscompose.ui.theme.NewsComposeTheme
+import io.ktor.util.*
 import org.koin.androidx.compose.getViewModel
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 
 @Composable
@@ -34,7 +37,7 @@ fun HomeRoute(
     NewsScreen(homeViewState = newsCategory,
         //title = "News",
         onNavigateToNewsDetails = onNavigateToNewsDetails,
-        onSavedClick = { homeViewModel.toggleSaved(it) },
+        onSavedClick = { homeViewModel.toggleSaved(it, it, it, it) },
         onLabelClick = { homeViewModel.switchSeletectedCategory(it) }
     )
 }
@@ -88,6 +91,7 @@ fun NewsScreen(
                 items = homeViewState.news,
                 key = { news -> news.hashCode() }
             ) { news ->
+                val encodedUrl = URLEncoder.encode(news.url, StandardCharsets.UTF_8.toString()).encodeBase64()
                 NewsCard(
                     newsCardViewState = NewsCardViewState(
                         news.headImageUrl,
@@ -97,7 +101,7 @@ fun NewsScreen(
                     ),
                     toNewsDetails = {
                         onNavigateToNewsDetails(NavigationItem.NewsDetailsDestination.createNavigationRoute(
-                            news.url
+                            encodedUrl
                         ))
                     },
                     modifier = Modifier

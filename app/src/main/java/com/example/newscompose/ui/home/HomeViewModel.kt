@@ -36,7 +36,7 @@ class HomeViewModel(
         initialValue = intialHomeMovieCategoryViewState
     )
 
-    fun toggleSaved(url: String){
+    fun toggleSaved(url: String,imageUrl: String, headline: String, date: String){
         viewModelScope.launch {
             newsRepository.toggleSaved(url)
         }
