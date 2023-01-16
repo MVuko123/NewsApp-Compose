@@ -8,6 +8,6 @@ interface HomeScreenMapper {
     fun toHomeCategoryViewState(
         newsCategories: List<NewsCategory>,
         selectedNewsCategory: NewsCategory,
-        news: List<News>
-    ):HomeCategoryViewState
+        news: List<News>,
+    ): HomeCategoryViewState
 }

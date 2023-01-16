@@ -1,23 +1,18 @@
 package com.example.newscompose.navigation
 
 import com.example.newscompose.R
-import com.example.newscompose.data.network.model.Source
-import com.example.newscompose.model.News
-import okhttp3.Request
 
 const val HOME_ROUTE = "Home"
 const val SAVED_ROUTE = "Saved"
 const val SEARCH_ROUTE = "Search"
 const val NEWS_DETAILS_ROUTE = "NewsDetails"
-const val NEWS_ID_KEY = "url"
-const val NEWS_DETAILS_ROUTE_WITH_PARAMS = "$NEWS_DETAILS_ROUTE/{$NEWS_ID_KEY}"
 
 sealed class NavigationItem(
     override val route: String,
     val selectedIconId: Int,
     val unselectedIconId: Int,
     val labelId: Int,
-): NewsAppDestination(route) {
+) : NewsAppDestination(route) {
     object HomeDestination : NavigationItem(
         route = HOME_ROUTE,
         selectedIconId = R.drawable.ic_baseline_home_24,
@@ -38,8 +33,4 @@ sealed class NavigationItem(
         unselectedIconId = R.drawable.ic_baseline_search_24,
         labelId = R.string.search
     )
-
-    object NewsDetailsDestination : NewsAppDestination(NEWS_DETAILS_ROUTE_WITH_PARAMS){
-        fun createNavigationRoute(url: String): String = "$NEWS_DETAILS_ROUTE/$url"
-    }
 }

@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.newscompose.data.network.model.Source
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,6 +17,4 @@ interface SavedNewsDao {
 
     @Delete
     fun deleteFromSaved(savedNews: DbSavedNews)
-
-
 }

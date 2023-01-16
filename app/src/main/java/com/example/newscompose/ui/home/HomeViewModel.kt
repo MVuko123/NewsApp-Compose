@@ -2,7 +2,6 @@ package com.example.newscompose.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.data.repository.NewsRepository
 import com.example.newscompose.model.NewsCategory
 import com.example.newscompose.ui.home.mapper.HomeScreenMapper
@@ -11,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val newsRepository: NewsRepository,
-    val homeScreenMapper: HomeScreenMapper
+    val homeScreenMapper: HomeScreenMapper,
 ) : ViewModel() {
     val newsCategory = listOf(
         NewsCategory.NEWS_EU,
@@ -36,23 +35,23 @@ class HomeViewModel(
         initialValue = intialHomeMovieCategoryViewState
     )
 
-    fun toggleSaved(url: String,imageUrl: String, headline: String, date: String){
+    fun toggleSaved(url: String) {
         viewModelScope.launch {
             newsRepository.toggleSaved(url)
         }
     }
 
-    fun switchSeletectedCategory(categoryId: Int){
-        when(categoryId){
-                NewsCategory.NEWS_EU.ordinal,
-                NewsCategory.NEWS_CLIMATE.ordinal,
-                NewsCategory.NEWS_UKRAINE.ordinal,
-                NewsCategory.NEWS_TECHNOLOGY.ordinal,
-                NewsCategory.NEWS_POLITICS.ordinal,
-                NewsCategory.NEWS_US_POLITICS.ordinal
-                    -> {
-                        _newsViewState.update { NewsCategory.values()[categoryId] }
-                    }
+    fun switchSeletectedCategory(categoryId: Int) {
+        when (categoryId) {
+            NewsCategory.NEWS_EU.ordinal,
+            NewsCategory.NEWS_CLIMATE.ordinal,
+            NewsCategory.NEWS_UKRAINE.ordinal,
+            NewsCategory.NEWS_TECHNOLOGY.ordinal,
+            NewsCategory.NEWS_POLITICS.ordinal,
+            NewsCategory.NEWS_US_POLITICS.ordinal,
+            -> {
+                _newsViewState.update { NewsCategory.values()[categoryId] }
+            }
         }
     }
 }

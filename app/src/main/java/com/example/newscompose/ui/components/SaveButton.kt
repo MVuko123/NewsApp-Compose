@@ -7,10 +7,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -23,8 +19,8 @@ import com.example.newscompose.ui.theme.NewsComposeTheme
 fun SaveButton(
     isSaved: Boolean = false,
     modifier: Modifier = Modifier,
-    savedClick: () -> Unit
-){
+    savedClick: () -> Unit,
+) {
     Surface(
         shape = CircleShape,
         color = Color(0x77968383),
@@ -43,7 +39,7 @@ fun SaveButton(
 
 @Preview
 @Composable
-private fun SaveButtonPreview(){
+private fun SaveButtonPreview() {
     NewsComposeTheme {
         SaveButton(isSaved = true, savedClick = {})
     }

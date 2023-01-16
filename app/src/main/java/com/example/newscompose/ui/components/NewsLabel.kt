@@ -17,23 +17,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newscompose.ui.theme.NewsComposeTheme
 
-sealed class NewsLabelTextViewState{
-    class NewsString(val category: String): NewsLabelTextViewState()
-    class NewsStringRes(@StringRes val textRes: Int): NewsLabelTextViewState()
+sealed class NewsLabelTextViewState {
+    class NewsString(val category: String) : NewsLabelTextViewState()
+    class NewsStringRes(@StringRes val textRes: Int) : NewsLabelTextViewState()
 }
 
 data class NewsLabelViewState(
     val itemId: Int,
     var isSelected: Boolean,
-    val text: NewsLabelTextViewState
+    val text: NewsLabelTextViewState,
 )
 
 @Composable
 fun NewsLabel(
     newsLabelViewState: NewsLabelViewState,
     modifier: Modifier = Modifier,
-    onLabelClick: () -> Unit
-){
+    onLabelClick: () -> Unit,
+) {
     Column(modifier = modifier.padding(10.dp)) {
         var selected = newsLabelViewState.isSelected
         Column(
@@ -46,7 +46,7 @@ fun NewsLabel(
                 fontWeight = if (selected) FontWeight.Bold else FontWeight.Light,
                 color = MaterialTheme.colors.onSurface,
             )
-            if(selected)
+            if (selected)
                 Divider(
                     modifier = Modifier
                         .padding(bottom = 4.dp)
@@ -60,9 +60,9 @@ fun NewsLabel(
 }
 
 @Composable
-fun TextSource(newsLabelViewState: NewsLabelViewState): String{
+fun TextSource(newsLabelViewState: NewsLabelViewState): String {
     val text = newsLabelViewState.text
-    return when (text){
+    return when (text) {
         is NewsLabelTextViewState.NewsString -> text.category
         is NewsLabelTextViewState.NewsStringRes -> stringResource(id = text.textRes)
     }
@@ -70,7 +70,7 @@ fun TextSource(newsLabelViewState: NewsLabelViewState): String{
 
 @Preview
 @Composable
-fun NewsLabelPreview(){
+fun NewsLabelPreview() {
     NewsComposeTheme {
         NewsLabel(newsLabelViewState = NewsLabelViewState(
             itemId = 2,

@@ -7,7 +7,6 @@ import com.example.newscompose.data.di.dataBaseModule
 import com.example.newscompose.data.di.dataModule
 import com.example.newscompose.data.di.networkModule
 import com.example.newscompose.ui.home.di.homeModule
-import com.example.newscompose.ui.newsDetails.di.newsDetailsModule
 import com.example.newscompose.ui.saved.di.savedModule
 import com.example.newscompose.ui.search.di.searchModule
 import org.koin.android.ext.koin.androidContext
@@ -19,7 +18,7 @@ class NewsApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        startKoin{
+        startKoin {
             androidLogger(Level.INFO)
             androidContext(this@NewsApp)
             modules(
@@ -28,7 +27,6 @@ class NewsApp : Application() {
                 dataModule,
                 networkModule,
                 homeModule,
-                newsDetailsModule,
                 savedModule,
                 searchModule
             )

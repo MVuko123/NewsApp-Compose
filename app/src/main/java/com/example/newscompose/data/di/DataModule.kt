@@ -6,7 +6,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val dataModule = module {
-    single <NewsRepository>{
+    single<NewsRepository> {
         NewsRepositoryImpl(get(), get(), get(named("dispatcherIO")))
     }
 }

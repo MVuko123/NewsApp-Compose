@@ -13,5 +13,5 @@ val homeModule = module {
             homeScreenMapper = get()
         )
     }
-    single<HomeScreenMapper>{ HomeScreenMapperImpl() }
+    single<HomeScreenMapper> { HomeScreenMapperImpl() }
 }

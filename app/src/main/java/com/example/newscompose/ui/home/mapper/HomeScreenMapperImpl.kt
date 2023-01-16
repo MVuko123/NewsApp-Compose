@@ -8,7 +8,7 @@ import com.example.newscompose.ui.components.NewsLabelViewState
 import com.example.newscompose.ui.home.HomeCategoryViewState
 import com.example.newscompose.ui.home.HomeNewsViewState
 
-class HomeScreenMapperImpl(): HomeScreenMapper {
+class HomeScreenMapperImpl : HomeScreenMapper {
     override fun toHomeCategoryViewState(
         newsCategories: List<NewsCategory>,
         selectedNewsCategory: NewsCategory,
@@ -36,8 +36,8 @@ class HomeScreenMapperImpl(): HomeScreenMapper {
             }
         )
 
-    private fun getStringRes(newsCategory: NewsCategory): Int{
-        return when (newsCategory){
+    private fun getStringRes(newsCategory: NewsCategory): Int {
+        return when (newsCategory) {
             NewsCategory.NEWS_EU -> R.string.europe
             NewsCategory.NEWS_CLIMATE -> R.string.climate
             NewsCategory.NEWS_POLITICS -> R.string.politics

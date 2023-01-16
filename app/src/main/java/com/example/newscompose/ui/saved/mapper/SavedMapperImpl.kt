@@ -1,6 +1,5 @@
 package com.example.newscompose.ui.saved.mapper
 
-import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.model.News
 import com.example.newscompose.ui.components.NewsCardViewState
 import com.example.newscompose.ui.saved.SavedNewsViewState
@@ -11,7 +10,7 @@ class SavedMapperImpl() : SavedMapper {
         SavedViewState(
             savedNews.map { news ->
                 SavedNewsViewState(
-                   news.url,
+                    news.url,
                     NewsCardViewState(
                         news.headImageUrl,
                         news.headline,

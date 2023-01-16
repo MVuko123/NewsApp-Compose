@@ -5,6 +5,6 @@ import com.example.newscompose.ui.search.SearchCategoryViewState
 
 interface SearchScreenMapper {
     fun toSearchCategoryViewState(
-        news: List<News>
-    ):SearchCategoryViewState
+        news: List<News>,
+    ): SearchCategoryViewState
 }

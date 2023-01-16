@@ -2,18 +2,15 @@ package com.example.newscompose.ui.saved
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.data.repository.NewsRepository
 import com.example.newscompose.ui.saved.mapper.SavedMapper
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.lang.Thread.State
 
 class SavedViewModel(
     private val newsRepository: NewsRepository,
-    val savedMapper: SavedMapper
+    val savedMapper: SavedMapper,
 ) : ViewModel() {
-
     private val _savedNewsViewState = MutableStateFlow(SavedViewState())
     val savedNewsViewState: StateFlow<SavedViewState> =
         newsRepository.savedNews()
@@ -26,7 +23,7 @@ class SavedViewModel(
                 _savedNewsViewState.value
             )
 
-    fun toggleSaved(url: String){
+    fun toggleSaved(url: String) {
         viewModelScope.launch {
             newsRepository.toggleSaved(url)
         }

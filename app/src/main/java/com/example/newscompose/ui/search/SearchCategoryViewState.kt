@@ -8,9 +8,9 @@ data class SearchViewState(
     val headImageUrl: String?,
     val publishedAt: String,
     val title: String,
-    val isSaved: Boolean
+    val isSaved: Boolean,
 )
 
 data class SearchCategoryViewState(
-    val search: List<SearchViewState> = listOf()
+    val search: List<SearchViewState> = listOf(),
 )

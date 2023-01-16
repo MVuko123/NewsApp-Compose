@@ -1,5 +1,5 @@
 package com.example.newscompose.navigation
 
 sealed class NewsAppDestination(
-    open val route: String
+    open val route: String,
 )

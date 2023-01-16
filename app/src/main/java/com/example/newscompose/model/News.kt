@@ -10,5 +10,5 @@ data class News(
     val headImageUrl: String?,
     val headline: String,
     val date: String,
-    val isSaved: Boolean
+    val isSaved: Boolean,
 )

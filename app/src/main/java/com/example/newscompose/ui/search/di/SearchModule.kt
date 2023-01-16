@@ -7,11 +7,11 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val searchModule = module {
-    viewModel{
+    viewModel {
         SearchViewModel(
             newsRepository = get(),
             searchScreenMapper = get()
         )
     }
-    single<SearchScreenMapper>{ SearchScreenMapperImpl() }
+    single<SearchScreenMapper> { SearchScreenMapperImpl() }
 }

@@ -5,7 +5,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val concurrencyModule = module {
-    single (named("dispatcherIO")){
+    single(named("dispatcherIO")) {
         Dispatchers.IO
     }
 }

@@ -1,6 +1,6 @@
 package com.example.newscompose.model
 
-enum class NewsCategory{
+enum class NewsCategory {
     NEWS_TECHNOLOGY,
     NEWS_UKRAINE,
     NEWS_POLITICS,

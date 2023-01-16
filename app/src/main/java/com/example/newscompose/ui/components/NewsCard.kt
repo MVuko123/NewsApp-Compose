@@ -22,7 +22,7 @@ data class NewsCardViewState(
     val newsImageUrl: String?,
     val title: String,
     val publishedAt: String,
-    val isSaved: Boolean
+    val isSaved: Boolean,
 )
 
 @Composable
@@ -30,53 +30,60 @@ fun NewsCard(
     newsCardViewState: NewsCardViewState,
     toNewsDetails: () -> Unit,
     modifier: Modifier = Modifier,
-    onSavedClick: (Boolean) -> Unit
-){
+    onSavedClick: (Boolean) -> Unit,
+) {
     Column(modifier = modifier
         .fillMaxWidth()
         .padding(8.dp)
         .clickable(onClick = toNewsDetails)
     ) {
-    val shape = RoundedCornerShape(12.dp)
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(220.dp)
-    ) {
-        AsyncImage(
+        val shape = RoundedCornerShape(12.dp)
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(shape),
-            model = newsCardViewState.newsImageUrl,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            placeholder = painterResource(id = R.drawable.ic_baseline_warning_24),
-            error = painterResource(id = R.drawable.ic_baseline_warning_24)
-        )
-        SaveButton(isSaved = newsCardViewState.isSaved, modifier = Modifier, savedClick = {onSavedClick(newsCardViewState.isSaved)})
-    }
+                .height(220.dp)
+        ) {
+            AsyncImage(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shape),
+                model = newsCardViewState.newsImageUrl,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                placeholder = painterResource(id = R.drawable.ic_baseline_warning_24),
+                error = painterResource(id = R.drawable.ic_baseline_warning_24)
+            )
+            SaveButton(
+                isSaved = newsCardViewState.isSaved, modifier = Modifier,
+                savedClick = { onSavedClick(newsCardViewState.isSaved) }
+            )
+        }
         Row(Modifier
             .fillMaxWidth()
             .padding(top = 10.dp, bottom = 5.dp),
             Arrangement.SpaceBetween
         ) {
-            Text(text = newsCardViewState.publishedAt , fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
+            Text(text = newsCardViewState.publishedAt,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Gray)
             Text(text = newsCardViewState.title, fontSize = 12.sp, fontWeight = FontWeight.Normal)
         }
     }
 }
 
-
-
 @Preview
 @Composable
-fun NewsCardPreview(){
+fun NewsCardPreview() {
     NewsComposeTheme {
         NewsCard(newsCardViewState = NewsCardViewState(
             newsImageUrl = "https://i.ytimg.com/vi/VXBO4jTxI2o/maxresdefault.jpg",
             publishedAt = "25.02.2022",
             title = "Russia Attacks Ukraine!",
             isSaved = true
-        ), toNewsDetails = { /*TODO*/ }, onSavedClick = {})
+        ),
+            toNewsDetails = { /*TODO*/ },
+            onSavedClick = {}
+        )
     }
 }

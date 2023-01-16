@@ -9,7 +9,7 @@ data class HomeNewsViewState(
     val headImageUrl: String?,
     val publishedAt: String,
     val title: String,
-    val isSaved: Boolean
+    val isSaved: Boolean,
 )
 
 data class HomeCategoryViewState(

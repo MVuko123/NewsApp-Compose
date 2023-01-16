@@ -12,11 +12,11 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 val networkModule = module {
-    single <NewsService> { NewsServiceImpl(client = get()) }
+    single<NewsService> { NewsServiceImpl(client = get()) }
     single {
-        HttpClient(Android){
+        HttpClient(Android) {
             expectSuccess = true
-            install(Logging){
+            install(Logging) {
                 level = LogLevel.ALL
                 logger = object : Logger {
                     override fun log(message: String) {
@@ -24,8 +24,8 @@ val networkModule = module {
                     }
                 }
             }
-            install(ContentNegotiation){
-                json(Json{
+            install(ContentNegotiation) {
+                json(Json {
                     isLenient = true
                     ignoreUnknownKeys = true
                 })

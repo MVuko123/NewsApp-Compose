@@ -26,13 +26,9 @@ import androidx.navigation.navArgument
 import com.example.newscompose.data.database.DbSavedNews
 import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.model.News
-import com.example.newscompose.navigation.NEWS_ID_KEY
 import com.example.newscompose.navigation.NavigationItem
 import com.example.newscompose.ui.home.HomeRoute
 import com.example.newscompose.ui.home.HomeViewModel
-import com.example.newscompose.ui.newsDetails.NewsDetailsRoute
-import com.example.newscompose.ui.newsDetails.NewsDetailsViewModel
-import com.example.newscompose.ui.newsDetails.di.newsDetailsModule
 import com.example.newscompose.ui.saved.SavedRoute
 import com.example.newscompose.ui.saved.SavedViewModel
 import com.example.newscompose.ui.search.SearchRoute
@@ -98,40 +94,18 @@ fun MainScreen() {
                 composable(NavigationItem.HomeDestination.route) {
                     HomeRoute(
                         homeViewModel = homeViewModel,
-                        onNavigateToNewsDetails = {
-                            showBottomBar = showBottomBar.not()
-                            navController.navigate(it)
-                        }
                     )
                 }
                 composable(NavigationItem.SavedDestination.route) {
                     SavedRoute(
                         savedViewModel = savedViewModel,
-                        onNavigateToNewsDetails = {
-                            showBottomBar = showBottomBar.not()
-                            navController.navigate(it)
-                        }
                     )
                 }
                 composable(NavigationItem.SearchDestination.route){
                     SearchRoute(
                         searchViewModel = searchViewModel,
-                        onNavigateToNewsDetails = {
-                            showBottomBar = showBottomBar.not()
-                            navController.navigate(it)
-                        },
 
                     )
-                }
-                composable(
-                    route = NavigationItem.NewsDetailsDestination.route,
-                    arguments = listOf(navArgument(NEWS_ID_KEY) { type = NavType.StringType }),
-                ) {
-                    val url = it.arguments?.getString(NEWS_ID_KEY)
-                    val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString()).encodeBase64()
-                    val newsDetailsViewModel =
-                        getViewModel<NewsDetailsViewModel>(parameters = { parametersOf(encodedUrl) })
-                    NewsDetailsRoute(newsDetailsViewModel = newsDetailsViewModel)
                 }
             }
         }
