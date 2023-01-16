@@ -9,6 +9,7 @@ class SearchScreenMapperImpl(): SearchScreenMapper {
         SearchCategoryViewState(
             news.map { news ->
                 SearchViewState(
+                    id = news.id,
                     source = news.source,
                     headImageUrl = news.headImageUrl,
                     publishedAt = news.date,

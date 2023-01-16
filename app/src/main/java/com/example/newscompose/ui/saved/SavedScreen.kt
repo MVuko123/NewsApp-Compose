@@ -11,13 +11,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.newscompose.data.network.model.Source
+import com.example.newscompose.model.News
 import com.example.newscompose.navigation.NavigationItem
 import com.example.newscompose.ui.components.NewsCard
 
 @Composable
 fun SavedRoute(
     savedViewModel: SavedViewModel,
-    source: Source?,
     onNavigateToNewsDetails: (String) -> Unit
 ){
     val savedState: SavedViewState by savedViewModel.savedNewsViewState.collectAsState()
@@ -25,7 +25,7 @@ fun SavedRoute(
     SavedScreen(
         savedViewState = savedState,
         onNavigateToNewsDetails = onNavigateToNewsDetails,
-        onSavedClick = { savedViewModel.toggleSaved(source) }
+        onSavedClick = { savedViewModel.toggleSaved(it) }
     )
 }
 
@@ -34,7 +34,7 @@ fun SavedScreen(
     savedViewState: SavedViewState,
     modifier: Modifier = Modifier,
     onNavigateToNewsDetails: (String) -> Unit,
-    onSavedClick: (String?) -> Unit,
+    onSavedClick: (Long?) -> Unit,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         LazyRow(
@@ -46,19 +46,19 @@ fun SavedScreen(
         ) {
             items(
                 items = savedViewState.savedNewsViewState,
-                key = { news -> news.source?.id!! }
+                key = { news -> news.id!! }
             ) { news ->
                 NewsCard(
                     newsCardViewState = news.newsCard,
                     toNewsDetails = {
                         onNavigateToNewsDetails(NavigationItem.NewsDetailsDestination.createNavigationRoute(
-                            news.source
+                            news.id
                         ))
                     },
                     modifier = Modifier
                         .height(200.dp)
                         .width(150.dp),
-                    onSavedClick = { onSavedClick(news.source?.id) }
+                    onSavedClick = { onSavedClick(news.id) }
                 )
             }
         }

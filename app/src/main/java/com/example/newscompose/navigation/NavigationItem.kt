@@ -40,6 +40,6 @@ sealed class NavigationItem(
     )
 
     object NewsDetailsDestination : NewsAppDestination(NEWS_DETAILS_ROUTE_WITH_PARAMS){
-        fun createNavigationRoute(source: Source?): String = "$NEWS_DETAILS_ROUTE/${source?.name}"
+        fun createNavigationRoute(id: Long?): String = "$NEWS_DETAILS_ROUTE/$id"
     }
 }

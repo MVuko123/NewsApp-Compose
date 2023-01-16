@@ -26,9 +26,9 @@ class SavedViewModel(
                 _savedNewsViewState.value
             )
 
-    fun toggleSaved(source: Source?){
+    fun toggleSaved(id: Long?){
         viewModelScope.launch {
-            newsRepository.toggleSaved(source)
+            newsRepository.toggleSaved(id)
         }
     }
 }

@@ -33,11 +33,11 @@ class NewsServiceImpl(private val client: HttpClient) : NewsService{
         client.get("$BASE_URL/everything?q=us+politics&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
     override suspend fun fetchSearchedNews(q: String): NewsResponse =
-        client.get("$BASE_URL/everything?q=$q&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
+        client.get("$BASE_URL/everything?search?q=$q&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
-    override suspend fun fetchNewsDetails(source: Source?): ApiNewsDetails =
-        client.get("$BASE_URL/sources=$source&apiKey=$API_KEY&image=true").body()
+    override suspend fun fetchNewsDetails(id: Long?): ApiNewsDetails =
+        client.get("$BASE_URL/q=$id&apiKey=$API_KEY&image=true").body()
 
-    override suspend fun fetchNewsCredits(source: Source?): NewsCreditsResponse =
-        client.get("$BASE_URL/sources=$source/credits&apiKey=$API_KEY&image=true").body()
+    override suspend fun fetchNewsCredits(id: Long?): NewsCreditsResponse =
+        client.get("$BASE_URL/q=$id/credits&apiKey=$API_KEY&image=true").body()
 }

@@ -28,14 +28,13 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun HomeRoute(
     homeViewModel: HomeViewModel,
-    source: Source?,
     onNavigateToNewsDetails: (String) -> Unit
 ){
     val newsCategory: HomeCategoryViewState by homeViewModel.newsViewState.collectAsState()
     NewsScreen(homeViewState = newsCategory,
         //title = "News",
         onNavigateToNewsDetails = onNavigateToNewsDetails,
-        onSavedClick = { homeViewModel.toggleSaved(source) },
+        onSavedClick = { homeViewModel.toggleSaved(it) },
         onLabelClick = { homeViewModel.switchSeletectedCategory(it) }
     )
 }
@@ -46,7 +45,7 @@ fun NewsScreen(
     //title: String,
     modifier: Modifier = Modifier,
     onNavigateToNewsDetails: (String) -> Unit,
-    onSavedClick: (String?) -> Unit,
+    onSavedClick: (Long?) -> Unit,
     onLabelClick: (Int) -> Unit,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
@@ -98,13 +97,13 @@ fun NewsScreen(
                     ),
                     toNewsDetails = {
                         onNavigateToNewsDetails(NavigationItem.NewsDetailsDestination.createNavigationRoute(
-                            news.source
+                            news.id
                         ))
                     },
                     modifier = Modifier
                         .height(220.dp)
                         .fillMaxWidth(),
-                    onSavedClick = { onSavedClick(news.source?.name) }
+                    onSavedClick = { onSavedClick(news.id) }
                 )
                 Column(Modifier
                     .fillMaxWidth()

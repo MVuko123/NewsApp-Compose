@@ -10,7 +10,6 @@ import com.example.newscompose.data.network.model.Source
 @Entity(tableName = "savedNews")
 data class DbSavedNews(
     @PrimaryKey
+    val id: Long?,
     val headImageUrl: String,
-    @Embedded
-    val newsSource: Source?,
 )

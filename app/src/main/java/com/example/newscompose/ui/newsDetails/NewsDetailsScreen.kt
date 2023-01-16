@@ -27,21 +27,20 @@ import com.example.newscompose.ui.components.SaveButton
 fun NewsDetailsRoute(
     newsDetailsViewModel: NewsDetailsViewModel,
     modifier: Modifier = Modifier,
-    source: Source?
 ){
     val details: NewsDetailsViewState by newsDetailsViewModel.newsDetailsViewState.collectAsState()
 
     NewsDetailsScreen(
         newsDetailsViewState = details,
         modifier = modifier,
-        onSavedClick = { newsDetailsViewModel.toggleSaved(source)})
+        onSavedClick = { newsDetailsViewModel.toggleSaved(it)})
 }
 
 @Composable
 fun NewsDetailsScreen(
     newsDetailsViewState: NewsDetailsViewState,
     modifier: Modifier = Modifier,
-    onSavedClick: (Boolean) -> Unit,
+    onSavedClick: (Long?) -> Unit,
 ){
     Column(modifier = modifier
         .fillMaxWidth()
@@ -62,7 +61,7 @@ fun NewsDetailsScreen(
                 placeholder = painterResource(id = R.drawable.ic_baseline_warning_24),
                 error = painterResource(id = R.drawable.ic_baseline_warning_24)
             )
-            SaveButton(isSaved = newsDetailsViewState.isSaved, modifier = Modifier, savedClick = {onSavedClick(newsDetailsViewState.isSaved)})
+            SaveButton(isSaved = newsDetailsViewState.isSaved, modifier = Modifier, savedClick = {onSavedClick(newsDetailsViewState.id)})
         }
         Row(Modifier
             .fillMaxWidth()

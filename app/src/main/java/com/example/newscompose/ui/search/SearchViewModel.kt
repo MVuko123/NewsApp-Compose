@@ -33,17 +33,35 @@ class SearchViewModel(
     private val _topic = MutableStateFlow("")
     val topic = mutableStateOf("")
 
-    private var _searched = _topic.flatMapLatest { topic ->
-        newsRepository.searchNews(topic).map { news ->
-            searchScreenMapper.toSearchCategoryViewState(news = news)
+     var _searched =
+        if(_topic.value == "" || topic.value == ""){
+            newsRepository.searchNews("").map { news ->
+                searchScreenMapper.toSearchCategoryViewState(news = news)
+            }.stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(1000L),
+                initalSearchedCategoryViewState
+            )
         }
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(1000L),
-        SearchCategoryViewState(emptyList())
-    )
+        else {
+            _topic.flatMapLatest { topic ->
+                newsRepository.searchNews(topic).map { news ->
+                    searchScreenMapper.toSearchCategoryViewState(news = news)
+                }
+            }.stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(1000L),
+                initalSearchedCategoryViewState
+            )
+        }
 
     var searched: StateFlow<SearchCategoryViewState> = _searched
+
+    fun setTopic(topic: String){
+        this._topic.value = topic
+
+        this.topic.value = topic
+    }
 
     /*
     val searchViewState: StateFlow<SearchCategoryViewState> =
@@ -57,9 +75,9 @@ class SearchViewModel(
 
      */
 
-    fun toggleSaved(source: Source?){
+    fun toggleSaved(id: Long?){
         viewModelScope.launch {
-            newsRepository.toggleSaved(source)
+            newsRepository.toggleSaved(id)
         }
     }
 }

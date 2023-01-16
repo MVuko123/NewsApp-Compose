@@ -4,7 +4,7 @@ import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.ui.components.NewsCardViewState
 
 data class SavedNewsViewState(
-    val source: Source?,
+    val id: Long?,
     val newsCard: NewsCardViewState
 )
 

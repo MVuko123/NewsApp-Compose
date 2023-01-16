@@ -24,12 +24,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.newscompose.data.network.model.Source
+import com.example.newscompose.model.News
 import com.example.newscompose.navigation.NEWS_ID_KEY
 import com.example.newscompose.navigation.NavigationItem
 import com.example.newscompose.ui.home.HomeRoute
 import com.example.newscompose.ui.home.HomeViewModel
 import com.example.newscompose.ui.newsDetails.NewsDetailsRoute
 import com.example.newscompose.ui.newsDetails.NewsDetailsViewModel
+import com.example.newscompose.ui.newsDetails.di.newsDetailsModule
 import com.example.newscompose.ui.saved.SavedRoute
 import com.example.newscompose.ui.saved.SavedViewModel
 import com.example.newscompose.ui.search.SearchRoute
@@ -92,7 +94,6 @@ fun MainScreen() {
                 composable(NavigationItem.HomeDestination.route) {
                     HomeRoute(
                         homeViewModel = homeViewModel,
-                        source = Source("", ""),
                         onNavigateToNewsDetails = {
                             showBottomBar = showBottomBar.not()
                             navController.navigate(it)
@@ -102,7 +103,6 @@ fun MainScreen() {
                 composable(NavigationItem.SavedDestination.route) {
                     SavedRoute(
                         savedViewModel = savedViewModel,
-                        source = Source("",""),
                         onNavigateToNewsDetails = {
                             showBottomBar = showBottomBar.not()
                             navController.navigate(it)
@@ -116,16 +116,17 @@ fun MainScreen() {
                             showBottomBar = showBottomBar.not()
                             navController.navigate(it)
                         },
-                        source = Source("",""))
+
+                    )
                 }
                 composable(
                     route = NavigationItem.NewsDetailsDestination.route,
-                    arguments = listOf(navArgument(NEWS_ID_KEY) { type = NavType.IntType }),
+                    arguments = listOf(navArgument(NEWS_ID_KEY) { type = NavType.LongType }),
                 ) {
-                    val source = it.arguments?.getInt(NEWS_ID_KEY)
+                    val id = it.arguments?.getLong(NEWS_ID_KEY)
                     val newsDetailsViewModel =
-                        getViewModel<NewsDetailsViewModel>(parameters = { parametersOf(source) })
-                    NewsDetailsRoute(newsDetailsViewModel = newsDetailsViewModel, source = Source("", ""))
+                        getViewModel<NewsDetailsViewModel>(parameters = { parametersOf(id) })
+                    NewsDetailsRoute(newsDetailsViewModel = newsDetailsViewModel)
                 }
             }
         }

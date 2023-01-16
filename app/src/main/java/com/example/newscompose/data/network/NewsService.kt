@@ -13,6 +13,6 @@ interface NewsService {
     suspend fun fetchClimateNews(): NewsResponse
     suspend fun fetchUsPoliticsNews(): NewsResponse
     suspend fun fetchSearchedNews(q: String): NewsResponse
-    suspend fun fetchNewsDetails(source: Source?): ApiNewsDetails
-    suspend fun fetchNewsCredits(source: Source?): NewsCreditsResponse
+    suspend fun fetchNewsDetails(id: Long?): ApiNewsDetails
+    suspend fun fetchNewsCredits(id: Long?): NewsCreditsResponse
 }

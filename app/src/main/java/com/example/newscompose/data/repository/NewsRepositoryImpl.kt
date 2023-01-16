@@ -9,6 +9,7 @@ import com.example.newscompose.model.NewsCategory
 import com.example.newscompose.model.NewsDetails
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 
@@ -18,6 +19,7 @@ class NewsRepositoryImpl(
     private val bgDispatcher: CoroutineDispatcher
 ) : NewsRepository {
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val newsByCategory: Map<NewsCategory, Flow<List<News>>> = NewsCategory.values()
         .associateWith { newsCategory ->
             flow {
@@ -34,7 +36,7 @@ class NewsRepositoryImpl(
                     newsDao.saved()
                         .map {
                             apiNews.map { apiNewss ->
-                                apiNewss.toNews(isSaved = it.any{it.newsSource == apiNewss.source})
+                                apiNewss.toNews(isSaved = it.any{it.id == apiNewss.toNews(false).id})
                             }
                         }
             }.shareIn(
@@ -47,7 +49,8 @@ class NewsRepositoryImpl(
     private val saved = newsDao.saved().map {
         it.map { dbSavedNews ->
             News(
-                source = dbSavedNews.newsSource,
+                id = dbSavedNews.id,
+                source = Source("",""),
                 headImageUrl = dbSavedNews.headImageUrl,
                 headline = "",
                 date = "",
@@ -60,12 +63,12 @@ class NewsRepositoryImpl(
         replay = 1
     )
 
-    private suspend fun findNews(source: Source?): News {
+    private suspend fun findNews(id: Long?): News {
         lateinit var news: News
         newsByCategory.values.forEach { value ->
             val newss = value.first()
             newss.forEach {
-                if (it.source == source) {
+                if (it.id == id) {
                     news = it
                 }
             }
@@ -73,60 +76,62 @@ class NewsRepositoryImpl(
         return news
     }
 
-
     override fun news(newsCategory: NewsCategory): Flow<List<News>> = newsByCategory[newsCategory]!!
 
-    override fun newsDetails(source: Source?): Flow<NewsDetails> = flow {
-       emit(newsService.fetchNewsDetails(source) to newsService.fetchNewsCredits(source))
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun newsDetails(id: Long?): Flow<NewsDetails> = flow {
+       emit(newsService.fetchNewsDetails(id) to newsService.fetchNewsCredits(id))
     }.flatMapLatest { (apiNewsDetails, apiNewsCredits) ->
         newsDao.saved()
             .map { savedNews ->
                 apiNewsDetails.toNewsDetails(
-                    isSaved = savedNews.any{it.newsSource == apiNewsDetails.source}
+                    isSaved = savedNews.any{it.id == apiNewsDetails.toNewsDetails(false).news.id}
                 )
             }
     }
 
     override fun savedNews(): Flow<List<News>> = saved
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun searchNews(topic: String): Flow<List<News>> = flow {
         emit(newsService.fetchSearchedNews(topic))
     }.flatMapLatest {  response ->
-        newsDao.saved().map { savedNews ->
-            response.news.map { news -> news.toNews(isSaved = savedNews.any {it.newsSource == news.source}) }
+            newsDao.saved().map { savedNews ->
+                response.news.map { news -> news.toNews(isSaved = savedNews.any { it.id == news.toNews(false).id }) }
+            }
         }
-    }
 
-    override suspend fun addNewsToSaved(source: Source?) {
+    override suspend fun addNewsToSaved(id: Long?) {
         runBlocking (bgDispatcher){
             newsDao.insertIntoSaved(
                 DbSavedNews(
-                    newsSource = source,
-                    headImageUrl = "${newsService.fetchNewsDetails(source).headImageUrl}"
+                    id = id,
+                    headImageUrl = "${newsService.fetchNewsDetails(id).headImageUrl}"
                 )
             )
         }
     }
 
-    override suspend fun removeNewsFromSaved(source: Source?) {
+    override suspend fun removeNewsFromSaved(id: Long?) {
         runBlocking (bgDispatcher){
             newsDao.deleteFromSaved(
                 DbSavedNews(
-                    newsSource = source,
-                    headImageUrl = "${newsService.fetchNewsDetails(source).headImageUrl}"
+                    id = id,
+                    headImageUrl = "${newsService.fetchNewsDetails(id).headImageUrl}"
                 )
             )
         }
     }
 
-    override suspend fun toggleSaved(source: Source?) {
+    override suspend fun toggleSaved(id: Long?) {
         runBlocking (bgDispatcher) {
-            val savedNews = findNews(source = source)
+            val savedNews = findNews(id = id)
             if (savedNews.isSaved) {
-                removeNewsFromSaved(source)
+                removeNewsFromSaved(id)
             } else {
-                addNewsToSaved(source)
+                addNewsToSaved(id)
             }
         }
     }
 }
+
