@@ -75,9 +75,9 @@ class SearchViewModel(
 
      */
 
-    fun toggleSaved(id: Long?){
+    fun toggleSaved(url: String){
         viewModelScope.launch {
-            newsRepository.toggleSaved(id)
+            newsRepository.toggleSaved(url)
         }
     }
 }

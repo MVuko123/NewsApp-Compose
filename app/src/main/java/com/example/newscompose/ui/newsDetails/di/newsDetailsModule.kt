@@ -11,7 +11,7 @@ val newsDetailsModule = module {
         NewsDetailsViewModel(
             newsRepository = get(),
             newsDetailsMapper = get(),
-            id = get()
+            url = get()
         )
     }
     single <NewsDetailsMapper> { NewsDetailsMapperImpl() }

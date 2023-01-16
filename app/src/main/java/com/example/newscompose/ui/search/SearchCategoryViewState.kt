@@ -3,7 +3,7 @@ package com.example.newscompose.ui.search
 import com.example.newscompose.data.network.model.Source
 
 data class SearchViewState(
-    val id: Long?,
+    val url: String,
     val source: Source?,
     val headImageUrl: String?,
     val publishedAt: String,

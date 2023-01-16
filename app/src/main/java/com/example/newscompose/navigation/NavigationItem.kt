@@ -9,7 +9,7 @@ const val HOME_ROUTE = "Home"
 const val SAVED_ROUTE = "Saved"
 const val SEARCH_ROUTE = "Search"
 const val NEWS_DETAILS_ROUTE = "NewsDetails"
-const val NEWS_ID_KEY = "title"
+const val NEWS_ID_KEY = "url"
 const val NEWS_DETAILS_ROUTE_WITH_PARAMS = "$NEWS_DETAILS_ROUTE/{$NEWS_ID_KEY}"
 
 sealed class NavigationItem(
@@ -40,6 +40,6 @@ sealed class NavigationItem(
     )
 
     object NewsDetailsDestination : NewsAppDestination(NEWS_DETAILS_ROUTE_WITH_PARAMS){
-        fun createNavigationRoute(id: Long?): String = "$NEWS_DETAILS_ROUTE/$id"
+        fun createNavigationRoute(url: String): String = "$NEWS_DETAILS_ROUTE/$url"
     }
 }

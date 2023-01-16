@@ -4,8 +4,8 @@ import androidx.room.PrimaryKey
 import com.example.newscompose.data.network.model.Source
 
 data class News(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long? = null,
+    @PrimaryKey
+    val url: String,
     val source: Source?,
     val headImageUrl: String?,
     val headline: String,

@@ -26,7 +26,7 @@ class HomeScreenMapperImpl(): HomeScreenMapper {
             },
             news.map { news ->
                 HomeNewsViewState(
-                    id = news.id,
+                    url = news.url,
                     source = news.source,
                     headImageUrl = news.headImageUrl,
                     publishedAt = news.date,

@@ -36,7 +36,7 @@ class NewsRepositoryImpl(
                     newsDao.saved()
                         .map {
                             apiNews.map { apiNewss ->
-                                apiNewss.toNews(isSaved = it.any{it.id == apiNewss.toNews(false).id})
+                                apiNewss.toNews(isSaved = it.any{it.url == apiNewss.url})
                             }
                         }
             }.shareIn(
@@ -49,7 +49,7 @@ class NewsRepositoryImpl(
     private val saved = newsDao.saved().map {
         it.map { dbSavedNews ->
             News(
-                id = dbSavedNews.id,
+                url = dbSavedNews.url,
                 source = Source("",""),
                 headImageUrl = dbSavedNews.headImageUrl,
                 headline = "",
@@ -63,12 +63,12 @@ class NewsRepositoryImpl(
         replay = 1
     )
 
-    private suspend fun findNews(id: Long?): News {
+    private suspend fun findNews(url: String): News {
         lateinit var news: News
         newsByCategory.values.forEach { value ->
             val newss = value.first()
             newss.forEach {
-                if (it.id == id) {
+                if (it.url == url) {
                     news = it
                 }
             }
@@ -79,13 +79,13 @@ class NewsRepositoryImpl(
     override fun news(newsCategory: NewsCategory): Flow<List<News>> = newsByCategory[newsCategory]!!
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun newsDetails(id: Long?): Flow<NewsDetails> = flow {
-       emit(newsService.fetchNewsDetails(id) to newsService.fetchNewsCredits(id))
+    override fun newsDetails(url: String): Flow<NewsDetails> = flow {
+       emit(newsService.fetchNewsDetails(url) to newsService.fetchNewsCredits(url))
     }.flatMapLatest { (apiNewsDetails, apiNewsCredits) ->
         newsDao.saved()
             .map { savedNews ->
                 apiNewsDetails.toNewsDetails(
-                    isSaved = savedNews.any{it.id == apiNewsDetails.toNewsDetails(false).news.id}
+                    isSaved = savedNews.any{it.url == apiNewsDetails.url}
                 )
             }
     }
@@ -97,39 +97,39 @@ class NewsRepositoryImpl(
         emit(newsService.fetchSearchedNews(topic))
     }.flatMapLatest {  response ->
             newsDao.saved().map { savedNews ->
-                response.news.map { news -> news.toNews(isSaved = savedNews.any { it.id == news.toNews(false).id }) }
+                response.news.map { news -> news.toNews(isSaved = savedNews.any { it.url == news.url }) }
             }
         }
 
-    override suspend fun addNewsToSaved(id: Long?) {
+    override suspend fun addNewsToSaved(url: String) {
         runBlocking (bgDispatcher){
             newsDao.insertIntoSaved(
                 DbSavedNews(
-                    id = id,
-                    headImageUrl = "${newsService.fetchNewsDetails(id).headImageUrl}"
+                    url = url,
+                    headImageUrl = "${newsService.fetchNewsDetails(url).headImageUrl}"
                 )
             )
         }
     }
 
-    override suspend fun removeNewsFromSaved(id: Long?) {
+    override suspend fun removeNewsFromSaved(url: String) {
         runBlocking (bgDispatcher){
             newsDao.deleteFromSaved(
                 DbSavedNews(
-                    id = id,
-                    headImageUrl = "${newsService.fetchNewsDetails(id).headImageUrl}"
+                    url = url,
+                    headImageUrl = "${newsService.fetchNewsDetails(url).headImageUrl}"
                 )
             )
         }
     }
 
-    override suspend fun toggleSaved(id: Long?) {
+    override suspend fun toggleSaved(url: String) {
         runBlocking (bgDispatcher) {
-            val savedNews = findNews(id = id)
+            val savedNews = findNews(url = url)
             if (savedNews.isSaved) {
-                removeNewsFromSaved(id)
+                removeNewsFromSaved(url)
             } else {
-                addNewsToSaved(id)
+                addNewsToSaved(url)
             }
         }
     }

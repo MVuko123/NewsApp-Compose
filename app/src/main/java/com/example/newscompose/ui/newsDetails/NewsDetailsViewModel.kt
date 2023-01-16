@@ -14,16 +14,16 @@ import kotlinx.coroutines.launch
 class NewsDetailsViewModel(
     private val newsRepository: NewsRepository,
     val newsDetailsMapper: NewsDetailsMapper,
-    val id: Long?
+    val url: String
 ): ViewModel() {
     val newsDetailsViewState: StateFlow<NewsDetailsViewState> =
-        newsRepository.newsDetails(id = id)
+        newsRepository.newsDetails(url = url)
             .map { news -> newsDetailsMapper.toNewsDetailsViewState(news) }
             .stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(1000L),
                 NewsDetailsViewState(
-                    id = id,
+                    url = url,
                     source = Source("",""),
                     headImageUrl = "",
                     title = "",
@@ -34,9 +34,9 @@ class NewsDetailsViewModel(
                 )
             )
 
-    fun toggleSaved(id: Long?){
+    fun toggleSaved(url: String){
         viewModelScope.launch {
-            newsRepository.toggleSaved(id)
+            newsRepository.toggleSaved(url)
         }
     }
 }

@@ -40,7 +40,7 @@ fun NewsDetailsRoute(
 fun NewsDetailsScreen(
     newsDetailsViewState: NewsDetailsViewState,
     modifier: Modifier = Modifier,
-    onSavedClick: (Long?) -> Unit,
+    onSavedClick: (String) -> Unit,
 ){
     Column(modifier = modifier
         .fillMaxWidth()
@@ -61,7 +61,7 @@ fun NewsDetailsScreen(
                 placeholder = painterResource(id = R.drawable.ic_baseline_warning_24),
                 error = painterResource(id = R.drawable.ic_baseline_warning_24)
             )
-            SaveButton(isSaved = newsDetailsViewState.isSaved, modifier = Modifier, savedClick = {onSavedClick(newsDetailsViewState.id)})
+            SaveButton(isSaved = newsDetailsViewState.isSaved, modifier = Modifier, savedClick = {onSavedClick(newsDetailsViewState.url)})
         }
         Row(Modifier
             .fillMaxWidth()

@@ -34,7 +34,7 @@ fun SavedScreen(
     savedViewState: SavedViewState,
     modifier: Modifier = Modifier,
     onNavigateToNewsDetails: (String) -> Unit,
-    onSavedClick: (Long?) -> Unit,
+    onSavedClick: (String) -> Unit,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
         LazyRow(
@@ -46,19 +46,19 @@ fun SavedScreen(
         ) {
             items(
                 items = savedViewState.savedNewsViewState,
-                key = { news -> news.id!! }
+                key = { news -> news.url }
             ) { news ->
                 NewsCard(
                     newsCardViewState = news.newsCard,
                     toNewsDetails = {
                         onNavigateToNewsDetails(NavigationItem.NewsDetailsDestination.createNavigationRoute(
-                            news.id
+                            news.url
                         ))
                     },
                     modifier = Modifier
                         .height(200.dp)
                         .width(150.dp),
-                    onSavedClick = { onSavedClick(news.id) }
+                    onSavedClick = { onSavedClick(news.url) }
                 )
             }
         }

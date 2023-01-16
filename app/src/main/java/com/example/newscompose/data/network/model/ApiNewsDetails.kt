@@ -8,6 +8,8 @@ import java.util.*
 
 @Serializable
 data class ApiNewsDetails(
+    @SerialName("url")
+    val url: String,
     @SerialName("source")
     val source: Source,
     @SerialName("urlToImage")
@@ -23,6 +25,7 @@ data class ApiNewsDetails(
 ){
     fun toNewsDetails(isSaved: Boolean) = NewsDetails(
         news = News(
+            url = url,
             source = source,
             headImageUrl = headImageUrl,
             headline = title,

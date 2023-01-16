@@ -45,7 +45,7 @@ fun NewsScreen(
     //title: String,
     modifier: Modifier = Modifier,
     onNavigateToNewsDetails: (String) -> Unit,
-    onSavedClick: (Long?) -> Unit,
+    onSavedClick: (String) -> Unit,
     onLabelClick: (Int) -> Unit,
 ) {
     Column(Modifier.verticalScroll(rememberScrollState())) {
@@ -97,13 +97,13 @@ fun NewsScreen(
                     ),
                     toNewsDetails = {
                         onNavigateToNewsDetails(NavigationItem.NewsDetailsDestination.createNavigationRoute(
-                            news.id
+                            news.url
                         ))
                     },
                     modifier = Modifier
                         .height(220.dp)
                         .fillMaxWidth(),
-                    onSavedClick = { onSavedClick(news.id) }
+                    onSavedClick = { onSavedClick(news.url) }
                 )
                 Column(Modifier
                     .fillMaxWidth()

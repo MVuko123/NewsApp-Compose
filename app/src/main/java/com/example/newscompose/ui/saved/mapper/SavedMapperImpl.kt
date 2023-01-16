@@ -11,7 +11,7 @@ class SavedMapperImpl() : SavedMapper {
         SavedViewState(
             savedNews.map { news ->
                 SavedNewsViewState(
-                   news.id,
+                   news.url,
                     NewsCardViewState(
                         news.headImageUrl,
                         news.headline,

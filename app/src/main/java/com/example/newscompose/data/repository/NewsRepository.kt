@@ -9,10 +9,10 @@ import kotlinx.coroutines.flow.SharedFlow
 
 interface NewsRepository {
     fun news(newsCategory: NewsCategory): Flow<List<News>>
-    fun newsDetails(id: Long?): Flow<NewsDetails>
+    fun newsDetails(url: String): Flow<NewsDetails>
     fun savedNews(): Flow<List<News>>
     fun searchNews(topic: String): Flow<List<News>>
-    suspend fun addNewsToSaved(id: Long?)
-    suspend fun removeNewsFromSaved(id: Long?)
-    suspend fun toggleSaved(id: Long?)
+    suspend fun addNewsToSaved(url: String)
+    suspend fun removeNewsFromSaved(url: String)
+    suspend fun toggleSaved(url: String)
 }

@@ -35,9 +35,9 @@ class NewsServiceImpl(private val client: HttpClient) : NewsService{
     override suspend fun fetchSearchedNews(q: String): NewsResponse =
         client.get("$BASE_URL/everything?search?q=$q&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
-    override suspend fun fetchNewsDetails(id: Long?): ApiNewsDetails =
-        client.get("$BASE_URL/q=$id&apiKey=$API_KEY&image=true").body()
+    override suspend fun fetchNewsDetails(url: String): ApiNewsDetails =
+        client.get("$BASE_URL/url=$url&apiKey=$API_KEY&image=true").body()
 
-    override suspend fun fetchNewsCredits(id: Long?): NewsCreditsResponse =
-        client.get("$BASE_URL/q=$id/credits&apiKey=$API_KEY&image=true").body()
+    override suspend fun fetchNewsCredits(url: String): NewsCreditsResponse =
+        client.get("$BASE_URL/url=$url/credits&apiKey=$API_KEY&image=true").body()
 }

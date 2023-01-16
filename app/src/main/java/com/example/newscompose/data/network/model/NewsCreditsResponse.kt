@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class NewsCreditsResponse (
-    @SerialName("id")
-    val id: Long?
+    @SerialName("url")
+    val url: String
 )
 

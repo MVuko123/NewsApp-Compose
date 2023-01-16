@@ -6,7 +6,7 @@ import com.example.newscompose.ui.newsDetails.NewsDetailsViewState
 class NewsDetailsMapperImpl() : NewsDetailsMapper {
     override fun toNewsDetailsViewState(newsDetails: NewsDetails): NewsDetailsViewState =
         NewsDetailsViewState(
-            newsDetails.news.id,
+            newsDetails.news.url,
             newsDetails.news.source,
             newsDetails.news.headImageUrl,
             newsDetails.news.headline,

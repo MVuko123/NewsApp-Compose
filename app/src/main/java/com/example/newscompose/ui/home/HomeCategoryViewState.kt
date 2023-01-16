@@ -4,7 +4,7 @@ import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.ui.components.NewsLabelViewState
 
 data class HomeNewsViewState(
-    val id: Long?,
+    val url: String,
     val source: Source?,
     val headImageUrl: String?,
     val publishedAt: String,

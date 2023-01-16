@@ -7,6 +7,8 @@ import java.util.Date
 
 @Serializable
 data class ApiNews(
+  @SerialName("url")
+  val url: String,
   @SerialName("source")
   val source: Source?,
   @SerialName("urlToImage")
@@ -17,6 +19,7 @@ data class ApiNews(
   val date: String
 ){
   fun toNews(isSaved: Boolean) = News(
+    url = url,
     source = source,
     headImageUrl = headImageUrl,
     headline = title,

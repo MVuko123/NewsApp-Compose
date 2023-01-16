@@ -123,9 +123,9 @@ fun MainScreen() {
                     route = NavigationItem.NewsDetailsDestination.route,
                     arguments = listOf(navArgument(NEWS_ID_KEY) { type = NavType.LongType }),
                 ) {
-                    val id = it.arguments?.getLong(NEWS_ID_KEY)
+                    val url = it.arguments?.getString(NEWS_ID_KEY)
                     val newsDetailsViewModel =
-                        getViewModel<NewsDetailsViewModel>(parameters = { parametersOf(id) })
+                        getViewModel<NewsDetailsViewModel>(parameters = { parametersOf(url) })
                     NewsDetailsRoute(newsDetailsViewModel = newsDetailsViewModel)
                 }
             }

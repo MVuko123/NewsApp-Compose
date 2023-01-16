@@ -49,7 +49,7 @@ fun SearchScreen(
     searchViewState: SearchCategoryViewState,
     modifier: Modifier = Modifier,
     onNavigateToNewsDetails: (String) -> Unit,
-    onSavedClick: (Long?) -> Unit,
+    onSavedClick: (String) -> Unit,
 ){
     val searchViewModel = getViewModel<SearchViewModel>()
     if(searchViewState.search.isEmpty()){
@@ -87,13 +87,13 @@ fun SearchScreen(
                         ),
                         toNewsDetails = {
                             onNavigateToNewsDetails(NavigationItem.NewsDetailsDestination.createNavigationRoute(
-                                news.id
+                                news.url
                             ))
                         },
                         modifier = Modifier
                             .height(220.dp)
                             .fillMaxWidth(),
-                        onSavedClick = { onSavedClick(news.id) }
+                        onSavedClick = { onSavedClick(news.url) }
                     )
                     Column(Modifier
                         .fillMaxWidth()

@@ -10,6 +10,6 @@ import com.example.newscompose.data.network.model.Source
 @Entity(tableName = "savedNews")
 data class DbSavedNews(
     @PrimaryKey
-    val id: Long?,
+    val url: String,
     val headImageUrl: String,
 )
