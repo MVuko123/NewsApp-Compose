@@ -32,8 +32,10 @@ class NewsServiceImpl(private val client: HttpClient) : NewsService{
     override suspend fun fetchUsPoliticsNews(): NewsResponse =
         client.get("$BASE_URL/everything?q=us+politics&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
 
-    override suspend fun fetchSearchedNews(q: String): NewsResponse =
-        client.get("$BASE_URL/everything?search?q=$q&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
+    override suspend fun fetchSearchedNews(q: String): NewsResponse {
+        val query = q.ifBlank { "all" }
+        return client.get("$BASE_URL/everything?q=$query&language=en&sortBy=publishedAt&apiKey=$API_KEY&image=true").body()
+    }
 
     override suspend fun fetchNewsDetails(url: String): ApiNewsDetails =
         client.get("$BASE_URL/url=$url&apiKey=$API_KEY&image=true").body()

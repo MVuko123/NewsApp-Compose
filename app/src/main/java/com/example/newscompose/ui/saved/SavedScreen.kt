@@ -69,7 +69,7 @@ fun SavedScreen(
                     },
                     modifier = Modifier
                         .height(200.dp)
-                        .width(150.dp),
+                        .fillMaxWidth(),
                     onSavedClick = { onSavedClick(news.url) }
                 )
                 Column(Modifier

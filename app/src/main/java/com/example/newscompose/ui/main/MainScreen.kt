@@ -23,6 +23,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.newscompose.data.database.DbSavedNews
 import com.example.newscompose.data.network.model.Source
 import com.example.newscompose.model.News
 import com.example.newscompose.navigation.NEWS_ID_KEY

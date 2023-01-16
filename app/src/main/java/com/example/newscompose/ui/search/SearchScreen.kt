@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -64,7 +65,6 @@ fun SearchScreen(
     }else{
         Column(Modifier.verticalScroll(rememberScrollState())) {
             SearchBar(topic = searchViewModel.topic.value, onTextChange = {searchViewModel.setTopic(it)})
-            Spacer(modifier = Modifier.height(50.dp))
             LazyColumn(
                 modifier = modifier
                     .height(800.dp)
@@ -127,12 +127,10 @@ fun SearchBar(topic: String, onTextChange: (String) -> Unit){
                 maxLines = 1,
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Search
+                    imeAction = ImeAction.Done
                 ),
-                keyboardActions = KeyboardActions(onSearch = {
+                keyboardActions = KeyboardActions(onDone = {
                     keyboardController?.hide()
-                    onTextChange(topic)
                 })
             )
         }
